@@ -1,1 +1,0 @@
-// system("clang -Wall -Wextra -Werror -o Sully_kid.c Sully.c");
