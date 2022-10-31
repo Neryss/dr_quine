@@ -9,4 +9,5 @@ function b() {return}
 		inside
 	*/
 	process.stdout.write("/*\n	outside\n*/\n\nfunction b() {return}\n\n("+main.toString()+")()");
+	return(0);
 })()

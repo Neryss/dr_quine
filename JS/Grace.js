@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs');
 
 a = (function () {
 	/*
@@ -8,6 +8,6 @@ a = (function () {
 		if (err)
 			console.error(err);
 	})
-	// return 
+	return(0);
 })
 a()
