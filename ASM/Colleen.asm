@@ -5,7 +5,7 @@ section .text
 
 print:
 	mov	rdi, test
-	mov	rsi, 2
+	mov	rsi, 10
 	call	printf WRT ..plt
 	ret
 main:
@@ -13,5 +13,5 @@ main:
 	jmp		print
 	ret
 section .data
-test: db "This is a test%d"
+test: db "This is a test%1$c, another one%1$c, and a last one%1$c"
 
