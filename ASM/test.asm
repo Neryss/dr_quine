@@ -2,13 +2,13 @@ section .text
 	global _start
 
 _start:
-	mov	eax, 4		; system call for write
-	mov	ebx, 1		; file descriptor
-	mov	ecx, msg	; put offset of hello in ecx (arg for write)
-	mov	edx, len	; len as argument
+	mov	rax, 4		; system call for write
+	mov	rbx, 1		; file descriptor
+	mov	rcx, msg	; put offset of hello in ecx (arg for write)
+	mov	rdx, len	; len as argument
 	int	80h			; Call the kernel to write
-	mov	eax, 1		; syscall for exit
-	mov	ebx, 0		; return 0
+	mov	rax, 1		; syscall for exit
+	mov	rbx, 0		; return 0
 	int	80h			; call kernel to exit
 
 section .data
