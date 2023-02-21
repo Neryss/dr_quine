@@ -13,11 +13,14 @@ clean:
 	rm -rf Colleen.o
 
 fclean: clean
-	rm -rf Colleen
+	rm -rf Colleen Colleen_tmp.txt
 
 re: fclean
 	$(MAKE)
 
-.PHONY: re all clean fclean
+run: all
+	./Colleen > Colleen_tmp.txt && diff Colleen.s Colleen_tmp.txt
+
+.PHONY: re all clean fclean run
 # nasm -felf64 Colleen.asm
 # gcc Collen.o
