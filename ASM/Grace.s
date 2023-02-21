@@ -15,6 +15,8 @@ main:
 	push	rbx
 	pop		rbx
 	jmp		open_file
+	mov		rax, 3
+	syscall
 	ret
 section .data
 filename: db "Grace_kid.c"
