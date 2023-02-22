@@ -11,7 +11,7 @@ main:
 	lea		rsi, [rel filename]
 	mov		rdx, len
 	syscall
-	call	close_file
+	; call	close_file
 	mov		rax, 0
 	pop		rbx
 	ret
