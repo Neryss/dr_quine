@@ -14,13 +14,21 @@ open_file:
 	ret
 main:
 	push	rbx
-	pop		rbx
-	jmp		open_file
+	call	open_file
+	mov		rdi, rax
+	mov		rax, 1
+	lea		rsi, [rel filename]
+	mov		rdx, len
+	syscall
+	mov		rdi, rax
 	mov		rax, 3
 	syscall
+	mov		rax, 0
+	pop		rbx
 	ret
 section .data
 filename: db "Grace_kid.s"
+len: equ $-filename
 %endmacro
 
 _main
