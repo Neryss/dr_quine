@@ -6,12 +6,14 @@ extern close
 main:
 	push	rbx
 	call	open_file
+	push	rax
 	mov		rdi, rax
 	mov		rax, 1
 	lea		rsi, [rel filename]
 	mov		rdx, len
 	syscall
-	; call	close_file
+	pop		rax
+	call	close_file
 	mov		rax, 0
 	pop		rbx
 	ret
