@@ -6,8 +6,9 @@ extern close
 open_file:
 	push	rbx
 	mov		rax, 2
-	mov		rdi, filename
-	mov		rsi, 2
+	lea		rdi, [rel filename]
+	mov		rsi, 64 + 1
+	mov		rdx, 0644o
 	syscall
 	pop		rbx
 	ret
@@ -19,7 +20,7 @@ main:
 	syscall
 	ret
 section .data
-filename: db "Grace_kid.c"
+filename: db "Grace_kid.s"
 %endmacro
 
 _main
