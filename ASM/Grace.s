@@ -5,6 +5,7 @@ extern close
 main:
 	push	rbx
 	call	open_file
+	push	rax
 	call	write_to_file
 	call	close_file
 	mov		rax, 0
@@ -13,6 +14,7 @@ main:
 %endmacro
 write_to_file:
 	push	rbx
+	mov		rdi, rax
 	lea		rsi, [rel code]
 	mov		rdx, 10
 	call	dprintf WRT ..plt
@@ -28,8 +30,8 @@ open_file:
 	pop		rbx
 	ret
 close_file:
+	pop		rdi
 	push	rbx
-	mov		rdi, rax
 	mov		rax, 3
 	syscall
 	pop		rbx
