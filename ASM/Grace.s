@@ -1,13 +1,11 @@
 global main
 extern dprintf
-extern close
 %macro _main 0
 main:
 	push	rbx
 	call	open_file
-	push	rax
 	call	write_to_file
-	call	close_file
+	;call	close_file
 	mov		rax, 0
 	pop		rbx
 	ret
@@ -38,6 +36,5 @@ close_file:
 	ret
 _main
 section .data
-filename: db "Grace_kid.s"
-code: db "This is a test%1$c"
-len: equ $-filename
+filename: db "Grace_kid.s", 0
+code: db "This is a test%1$c", 0
