@@ -4,9 +4,11 @@ extern dprintf
 main:
 	push	rbx
 	call	open_file
+	push	rax
 	call	write_to_file
+	pop		rax
 	;call	close_file
-	mov		rax, 0
+	;mov	rax, 0
 	pop		rbx
 	ret
 %endmacro
