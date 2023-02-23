@@ -4,9 +4,8 @@ extern dprintf
 main:
 	push	rbx
 	call	open_file
-	push	rax
+	mov		r12, rax
 	call	write_to_file
-	pop		rax
 	;call	close_file
 	;mov	rax, 0
 	pop		rbx
@@ -14,7 +13,7 @@ main:
 %endmacro
 write_to_file:
 	push	rbx
-	mov		rdi, rax
+	mov		rdi, r12
 	lea		rsi, [rel code]
 	mov		rdx, 10
 	call	dprintf WRT ..plt
