@@ -14,7 +14,7 @@ Grace: Grace.s
 	$(LD) -o Grace Grace.o
 
 clean:
-	rm -rf Colleen.o
+	rm -rf Colleen.o Grace.o
 
 fclean: clean
 	rm -rf Colleen Colleen_tmp.txt
