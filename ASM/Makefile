@@ -3,7 +3,7 @@ CFLAGS= -felf64
 LD= gcc -g
 MAKEFLAGS= --no-print-directory
 
-all: Makefile Colleen Grace
+all: Makefile Colleen Grace Sully
 
 Colleen: Colleen.s
 	$(CC) $(CFLAGS) Colleen.s
@@ -13,12 +13,17 @@ Grace: Grace.s
 	$(CC) $(CFLAGS) Grace.s
 	$(LD) -o Grace Grace.o
 
+Sully: Sully.s
+	$(CC) $(CFLAGS) Sully.s
+	$(LD) -o Sully Sully.o
+
 clean:
-	rm -rf Colleen.o Grace.o
+	rm -rf Colleen.o Grace.o Sully.o
 
 fclean: clean
 	rm -rf Colleen Colleen_tmp.txt
 	rm -rf Grace Grace_kid.s
+	rm -rf Sully Sully2.s
 
 re: fclean
 	$(MAKE)
