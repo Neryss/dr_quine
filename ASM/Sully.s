@@ -6,7 +6,7 @@ main:
 	push	rbx
 	mov		r12, 5
 	call	open_file
-	mov		r12, rax
+	mov		r13, rax
 	call	write_to_file
 	call	close_file
 	mov		rax, 0
@@ -15,7 +15,7 @@ main:
 	ret
 write_to_file:
 	push	rbx
-	mov		rdi, r12
+	mov		rdi, r13
 	lea		rsi, [rel code]
 	mov		rdx, 10
 	;mov		rcx, 34
@@ -40,7 +40,7 @@ open_file:
 	ret
 close_file:
 	push	rbx
-	mov		rdi, r12
+	mov		rdi, r13
 	mov		rax, 3
 	syscall
 	pop		rbx
