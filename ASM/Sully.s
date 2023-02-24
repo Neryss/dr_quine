@@ -1,16 +1,26 @@
 global main
 extern dprintf
 extern system
+extern asprintf
 section .text
 main:
 	push	rbx
 	mov		r12, 5
+	call	asprintf_call
 	call	open_file
 	mov		r13, rax
 	call	write_to_file
 	call	close_file
 	mov		rax, 0
 	;call	make
+	pop		rbx
+	ret
+asprintf_call:
+	push	rbx
+	mov		rdi, rsp
+	lea		rsi, [rel filename]
+	mov		rdx, r12
+	call	asprintf WRT ..plt
 	pop		rbx
 	ret
 write_to_file:
@@ -25,14 +35,14 @@ write_to_file:
 	ret
 make:
 	push	rbx
-	lea		rdi, [rel test]
+	lea		rdi, [rel exec]
 	call	system WRT ..plt
 	pop		rbx
 	ret
 open_file:
 	push	rbx
 	mov		rax, 2
-	lea		rdi, [rel filename]
+	mov		rdi, [rsp]
 	mov		rsi, 64 + 1
 	mov		rdx, 0644o
 	syscall
@@ -46,6 +56,6 @@ close_file:
 	pop		rbx
 	ret
 section .data
-filename: db "Sully2.s", 0
+filename: db "Sully_%d.s", 0
 code: db "global main%1$csection .text%1$cmain:%1$c	push	rbx%1$c	pop		rbx%1$c	ret", 0
-test: db "echo hey"
+exec: db "echo hey", 0
