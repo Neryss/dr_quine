@@ -18,9 +18,9 @@ main:
 	ret
 check_file:
 	mov		rax, 21
-	mov		rdi, rsp
+	mov		rdi, [r13]
 	mov		rsi, 0
-	syscall			;doesn't seem to work properly rn
+	syscall			;doesn't seem to work properly rn (returns unknown things when file doesn't exist and 0 when it does)
 	cmp		rax, -1
 	jne		quit_check
 	ret
@@ -33,6 +33,7 @@ asprintf_call:
 	lea		rsi, [rel filename]
 	mov		rdx, r12
 	call	asprintf WRT ..plt
+	mov		r13, rsp
 	pop		rbx
 	ret
 write_to_file:
@@ -54,7 +55,7 @@ make:
 open_file:
 	push	rbx
 	mov		rax, 2
-	mov		rdi, [rsp]
+	mov		rdi, [r13]
 	mov		rsi, 64 + 1
 	mov		rdx, 0644o
 	syscall
