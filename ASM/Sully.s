@@ -9,10 +9,10 @@ main:
 	call	asprintf_call
 	call	check_file
 	call	open_file
-	;mov		r13, rax
-	;call	write_to_file
-	;call	close_file
-	;mov		rax, 0
+	mov		r13, rax
+	call	write_to_file
+	call	close_file
+	mov		rax, 0
 	;call	make
 	pop		rbx
 	ret
