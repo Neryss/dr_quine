@@ -7,13 +7,25 @@ main:
 	push	rbx
 	mov		r12, 5
 	call	asprintf_call
+	call	check_file
 	call	open_file
-	mov		r13, rax
-	call	write_to_file
-	call	close_file
-	mov		rax, 0
+	;mov		r13, rax
+	;call	write_to_file
+	;call	close_file
+	;mov		rax, 0
 	;call	make
 	pop		rbx
+	ret
+check_file:
+	mov		rax, 21
+	mov		rdi, rsp
+	mov		rsi, 0
+	syscall
+	cmp		rax, -1
+	jne		quit_check
+	ret
+quit_check:
+	dec		r12
 	ret
 asprintf_call:
 	push	rbx
