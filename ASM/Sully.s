@@ -21,7 +21,7 @@ check_file:
 	mov		rdi, [r13]
 	mov		rsi, 0
 	syscall			;doesn't seem to work properly rn (returns unknown things when file doesn't exist and 0 when it does)
-	cmp		rax, -1
+	cmp		rax, 0
 	jne		quit_check
 	ret
 quit_check:
