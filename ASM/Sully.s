@@ -20,7 +20,7 @@ check_file:
 	mov		rax, 21
 	mov		rdi, rsp
 	mov		rsi, 0
-	syscall
+	syscall			;doesn't seem to work properly rn
 	cmp		rax, -1
 	jne		quit_check
 	ret
