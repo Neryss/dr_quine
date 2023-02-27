@@ -22,16 +22,17 @@ check_file:
 	mov		rsi, 0
 	syscall			;doesn't seem to work properly rn (returns unknown things when file doesn't exist and 0 when it does)
 	cmp		rax, 0
-	jne		quit_check
+	je		quit_check
 	ret
 quit_check:
 	dec		r12
+	call	asprintf_call
 	ret
 asprintf_call:
 	push	rbx
 	mov		rdi, rsp
 	lea		rsi, [rel filename]
-	mov		rdx, r12
+	mov		rdx, r12		;this causes a sigv when using r12
 	call	asprintf WRT ..plt
 	mov		r13, rsp
 	pop		rbx
