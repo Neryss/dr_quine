@@ -6,8 +6,8 @@ extern sprintf
 extern free
 section .text
 main:
-	push	rbx
 	mov		r12, 5
+
 	call	asprintf_call
 	call	check_file
 	;call	open_file
@@ -15,69 +15,50 @@ main:
 	;call	write_to_file
 	;call	close_file
 	;call	make
-	pop		rbx
 	mov		rax, 0
-	ret
+asprintf_call:
+	lea		rdi, [r13]
+	mov		rsi, filename
+	mov		rdx, r12
+	call	asprintf
 check_file:
 	mov		rax, 21
 	mov		rdi, [r13]
 	mov		rsi, 0
 	syscall			;(returns unknown values when file doesn't exist and 0 when it does)
 	cmp		rax, 0
-	je		quit_check
-	ret
+	jne		asprintf_call2
 quit_check:
 	dec		r12
-	call	asprintf_call
-	;call	open_file
-	ret
-;sprintf_call:
-;	push	rbx
-;	mov		rdi, buffer
-;	lea		rsi, [rel filename]
-;	mov		rdx, r12
-;	call	sprintf
-;	pop		rbx
-;	ret
-asprintf_call:
-	push	rbx
+asprintf_call2:
 	lea		rdi, [r13]
 	mov		rsi, filename
 	mov		rdx, r12
 	call	asprintf
-	pop		rbx
-	ret
+open_file:
+	mov		rax, 2
+	mov		rdi, [r13]
+	mov		rsi, 64 + 1
+	mov		rdx, 0644o
+	syscall
 write_to_file:
-	push	rbx
 	mov		rdi, r13
 	lea		rsi, [rel code]
 	mov		rdx, 10
 	;mov		rcx, 34
 	;lea		r8, [rel code]
 	call	dprintf
-	pop		rbx
-	ret
+	mov		rax, 60
+	mov		rdi, 0
+	syscall
 make:
-	push	rbx
 	lea		rdi, [rel exec]
 	call	system
-	pop		rbx
-	ret
-open_file:
-	push	rbx
-	mov		rax, 2
-	mov		rdi, [r13]
-	mov		rsi, 64 + 1
-	mov		rdx, 0644o
-	syscall
-	pop		rbx
 	ret
 close_file:
-	push	rbx
 	mov		rdi, r13
 	mov		rax, 3
 	syscall
-	pop		rbx
 	ret
 section .data
 filename: db "Sully_%d.s", 0
