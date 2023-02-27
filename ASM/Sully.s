@@ -19,7 +19,7 @@ main:
 	ret
 check_file:
 	mov		rax, 21
-	mov		rdi, [r13]
+	mov		rdi, r13
 	mov		rsi, 0
 	syscall			;(returns unknown values when file doesn't exist and 0 when it does)
 	cmp		rax, 0
@@ -29,21 +29,21 @@ quit_check:
 	dec		r12
 	call	asprintf_call
 	ret
-sprintf_call:
-	push	rbx
-	mov		rdi, buffer
-	lea		rsi, [rel filename]
-	mov		rdx, r12
-	call	sprintf WRT ..plt
-	pop		rbx
-	ret
+;sprintf_call:
+;	push	rbx
+;	mov		rdi, buffer
+;	lea		rsi, [rel filename]
+;	mov		rdx, r12
+;	call	sprintf WRT ..plt
+;	pop		rbx
+;	ret
 asprintf_call:
 	push	rbx
-	lea		rdi, [rsp]
+	mov		rdi, rsp
 	lea		rsi, [rel filename]
 	mov		rdx, r12
 	call	asprintf WRT ..plt
-	mov		r13, rsp
+	mov		r13, [rsp]
 	pop		rbx
 	ret
 write_to_file:
@@ -65,7 +65,7 @@ make:
 open_file:
 	push	rbx
 	mov		rax, 2
-	lea		rdi, [rel buffer]
+	mov		rdi, r13
 	mov		rsi, 64 + 1
 	mov		rdx, 0644o
 	syscall
