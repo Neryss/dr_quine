@@ -39,11 +39,10 @@ quit_check:
 ;	ret
 asprintf_call:
 	push	rbx
-	mov		rdi, rsp
-	lea		rsi, [rel filename]
+	mov		rdi, r13
+	mov		rsi, filename
 	mov		rdx, r12
 	call	asprintf WRT ..plt
-	mov		r13, [rsp]
 	pop		rbx
 	ret
 write_to_file:
@@ -65,7 +64,7 @@ make:
 open_file:
 	push	rbx
 	mov		rax, 2
-	mov		rdi, r13
+	mov		rdi, [r13]
 	mov		rsi, 64 + 1
 	mov		rdx, 0644o
 	syscall

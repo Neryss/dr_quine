@@ -1,6 +1,6 @@
 CC= nasm
 CFLAGS= -felf64
-LD= gcc -g
+LD= gcc -g -no-pie
 MAKEFLAGS= --no-print-directory
 
 all: Makefile Colleen Grace Sully
