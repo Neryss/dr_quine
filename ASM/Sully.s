@@ -12,15 +12,16 @@ main:
 	mov		r13, rax
 	call	write_to_file
 	call	close_file
-	mov		rax, 0
 	;call	make
 	pop		rbx
-	ret
+	mov		rax, 60
+	mov		rdi, 0
+	syscall
 check_file:
 	mov		rax, 21
 	mov		rdi, [r13]
 	mov		rsi, 0
-	syscall			;doesn't seem to work properly rn (returns unknown things when file doesn't exist and 0 when it does)
+	syscall			;(returns unknown values when file doesn't exist and 0 when it does)
 	cmp		rax, 0
 	je		quit_check
 	ret
@@ -32,7 +33,7 @@ asprintf_call:
 	push	rbx
 	mov		rdi, rsp
 	lea		rsi, [rel filename]
-	mov		rdx, r12		;this causes a sigv when using r12
+	mov		rdx, r12
 	call	asprintf WRT ..plt
 	mov		r13, rsp
 	pop		rbx
