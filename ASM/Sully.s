@@ -60,6 +60,10 @@ close_file:
 	mov		rax, 60
 	mov		rdi, 0
 	syscall
+sys_exit:
+	mov		rax, 60
+	mov		rdi, 0
+	syscall
 section .data
 filename: db "Sully_%d.s", 0
 code: db "global main%1$csection .text%1$cmain:%1$c	push	rbx%1$c	pop		rbx%1$c	ret", 0
