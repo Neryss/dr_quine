@@ -6,30 +6,19 @@ extern sprintf
 extern free
 section .text
 main:
+	push	rbx
 	mov		r12, 5
-
-	push	rbp
-	mov		rbp, rsp
-	mov		rdi, rsp
-	lea		rsi, filename
-	mov		rdx, r12
-	call	asprintf
+	call	create_filename
 	mov		rax, 60
-	;call	asprintf_call
-	;call	check_file
-	;call	open_file
-	;mov		r13, rax
-	;call	write_to_file
-	;call	close_file
-	;call	make
 	mov		rax, 0
-asprintf_call:
-	push	rbp
-	mov		rbp, rsp
-	mov		rdi, rsp
-	lea		rsi, filename
+	syscall
+create_filename:
+	push	rbx
+	lea		rdi, [filename]
+	lea		rsi, [fileformat]
 	mov		rdx, r12
-	call	asprintf
+	call	sprintf
+	pop		rbx
 	ret
 check_file:
 	mov		rax, 21
@@ -37,14 +26,8 @@ check_file:
 	mov		rsi, 0
 	syscall			;(returns unknown values when file doesn't exist and 0 when it does)
 	cmp		rax, 0
-	jne		asprintf_call2
 quit_check:
 	dec		r12
-asprintf_call2:
-	lea		rdi, [r13]
-	mov		rsi, filename
-	mov		rdx, r12
-	call	asprintf
 open_file:
 	mov		rax, 2
 	mov		rdi, [r13]
@@ -75,6 +58,7 @@ sys_exit:
 	mov		rdi, 0
 	syscall
 section .data
-filename: db "Sully_%d.s", 0
+filename: db "Sully_X.s",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+fileformat: db "Sully_%d.s", 0
+exec_buff: db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 code: db "global main%1$csection .text%1$cmain:%1$c	push	rbx%1$c	pop		rbx%1$c	ret", 0
-exec: db "echo hey", 0
