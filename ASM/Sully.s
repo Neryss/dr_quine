@@ -1,10 +1,10 @@
+section .text
+extern free
 global main
 extern dprintf
 extern system
 extern asprintf
 extern sprintf
-extern free
-section .text
 main:
 	mov		r12, 5
 	push	rbx			;https://stackoverflow.com/a/12736638
@@ -32,6 +32,12 @@ check_file:
 	mov		rsi, 0
 	syscall			;(returns unknown values when file doesn't exist and 0 when it does)
 	pop		rbx
+	cmp		rax, 0
+	je		file_exists
+	ret
+file_exists:
+	dec		r12
+	je		asprintf_call
 	ret
 open_file:
 	push	rbx
