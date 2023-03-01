@@ -8,8 +8,15 @@ section .text
 main:
 	mov		r12, 5
 
-	call	asprintf_call
-	call	check_file
+	push	rbp
+	mov		rbp, rsp
+	mov		rdi, rsp
+	lea		rsi, filename
+	mov		rdx, r12
+	call	asprintf
+	mov		rax, 60
+	;call	asprintf_call
+	;call	check_file
 	;call	open_file
 	;mov		r13, rax
 	;call	write_to_file
@@ -17,10 +24,13 @@ main:
 	;call	make
 	mov		rax, 0
 asprintf_call:
-	lea		rdi, [r13]
-	mov		rsi, filename
+	push	rbp
+	mov		rbp, rsp
+	mov		rdi, rsp
+	lea		rsi, filename
 	mov		rdx, r12
 	call	asprintf
+	ret
 check_file:
 	mov		rax, 21
 	mov		rdi, [r13]
