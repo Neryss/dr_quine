@@ -10,8 +10,10 @@ main:
 	push	rbx			;https://stackoverflow.com/a/12736638
 	call	asprintf_call
 	call	check_file
-	mov		rdi, rax
-	mov		rax, 60
+	call	open_file
+	call	write_to_file
+	call	close_file
+	call	sys_exit
 	pop		rbx
 	syscall
 asprintf_call:
@@ -24,25 +26,33 @@ asprintf_call:
 	pop		rbx
 	ret
 check_file:
+	push	rbx
 	mov		rax, 21
 	mov		rdi, [r13]
 	mov		rsi, 0
 	syscall			;(returns unknown values when file doesn't exist and 0 when it does)
+	pop		rbx
 	ret
 open_file:
+	push	rbx
 	mov		rax, 2
 	mov		rdi, [r13]
 	mov		rsi, 64 + 1
 	mov		rdx, 0644o
 	syscall
 	mov		r13, rax
+	pop		rbx
+	ret
 write_to_file:
+	push	rbx
 	mov		rdi, r13
-	mov		rsi, [code]
+	lea		rsi, [code]
 	mov		rdx, 10
 	mov		rcx, 34
 	;mov		r8, [code]
 	call	dprintf
+	pop		rbx
+	ret
 ;make:
 ;	lea		rdi, [rel exec]
 ;	call	system
