@@ -7,34 +7,28 @@ extern free
 section .text
 main:
 	mov		r12, 5
-
+	push	rbx
 	call	asprintf_call
 	call	check_file
-	;call	open_file
-	;mov		r13, rax
-	;call	write_to_file
-	;call	close_file
-	;call	make
-	mov		rax, 0
+	mov		rdi, rax
+	mov		rax, 60
+	pop		rbx
+	syscall
 asprintf_call:
-	lea		rdi, [r13]
-	mov		rsi, filename
+	push	rbx
+	mov		rdi, rsp
+	lea		rsi, [filename]
 	mov		rdx, r12
 	call	asprintf
+	mov		r13, rsp
+	pop		rbx
+	ret
 check_file:
 	mov		rax, 21
 	mov		rdi, [r13]
 	mov		rsi, 0
 	syscall			;(returns unknown values when file doesn't exist and 0 when it does)
-	cmp		rax, 0
-	jne		asprintf_call2
-quit_check:
-	dec		r12
-asprintf_call2:
-	lea		rdi, [r13]
-	mov		rsi, filename
-	mov		rdx, r12
-	call	asprintf
+	ret
 open_file:
 	mov		rax, 2
 	mov		rdi, [r13]
