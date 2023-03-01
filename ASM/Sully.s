@@ -7,7 +7,7 @@ extern free
 section .text
 main:
 	mov		r12, 5
-	push	rbx
+	push	rbx			;https://stackoverflow.com/a/12736638
 	call	asprintf_call
 	call	check_file
 	mov		rdi, rax
