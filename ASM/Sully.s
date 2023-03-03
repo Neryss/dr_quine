@@ -36,8 +36,10 @@ check_file:
 	je		file_exists
 	ret
 file_exists:
+	push	rbx
 	dec		r12
-	je		asprintf_call
+	call	asprintf_call
+	pop		rbx
 	ret
 open_file:
 	push	rbx
