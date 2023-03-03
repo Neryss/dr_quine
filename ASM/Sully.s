@@ -56,7 +56,7 @@ write_to_file:
 	lea		rsi, [code]
 	mov		rdx, 10
 	mov		rcx, 34
-	mov		r8, [code]
+	lea		r8, [code]
 	call	dprintf
 	pop		rbx
 	ret
@@ -77,5 +77,5 @@ sys_exit:
 	syscall
 section .data
 filename: db "Sully_%d.s", 0
-code: db "section .text%1$cglobal main%1$cextern free%1$cextern dprintf%1$cextern system%1$cextern asprintf%1$cextern sprintf%1$cmain:%1$c	mov		r12, 5%1$c	push	rbx%1$c	call	asprintf_call%1$c	call	check_file%1$c	call	open_file%1$c	call	write_to_file%1$c	call	close_file%1$c	pop		rbx%1$c	call	sys_exit%1$casprintf_call:%1$c	push	rbx%1$c	mov		rdi, rsp%1$c	lea		rsi, [filename]%1$c	mov		rdx, r12%1$c	call	asprintf%1$c	mov		r13, rsp%1$c	pop		rbx%1$c	ret%1$ccheck_file:%1$c	push	rbx%1$c	mov		rax, 21%1$c	mov		rdi, [r13]%1$c	mov		rsi, 0%1$c	syscall%1$c	pop		rbx%1$c	cmp		rax, 0%1$c	je		file_exists%1$c	ret%1$cfile_exists:%1$c	push	rbx%1$c	dec		r12%1$c	call	asprintf_call%1$c	pop		rbx%1$c	ret%1$copen_file:%1$c	push	rbx%1$c	mov		rax, 2%1$c	mov		rdi, [r13]%1$c	mov	rsi, 64 + 1%1$c	mov		rdx, 0644o%1$c	syscall%1$c	mov		r13, rax%1$c	pop		rbx%1$c	ret%1$cwrite_to_file:%1$c	push	rbx%1$c	mov		rdi, r13%1$c	lea		rsi, [code]%1$c	mov		rdx, 10%1$c	mov		rcx, 34%1$c	mov		r8, [code]%1$c	call	dprintf%1$c	pop		rbx%1$c	ret;make:%1$c;	lea		rdi, [exec]%1$c;	call	system%1$c;	ret%1$cclose_file:%1$c	mov		rdi, r13%1$c	mov		rax, 3%1$c	syscall%1$c	mov		rax, 60%1$c	mov		rdi, 0%1$c	syscall%1$csys_exit:%1$c	mov		rax, 60%1$c	mov		rdi, 0%1$c	syscall%1$csection .data%1$cfilename: db %2$cSully_%%d.s%2$c, 0%1$ccode: %2$c%3$c%2$c, 0%1$c", 0
+code: db "section .text%1$cglobal main%1$cextern free%1$cextern dprintf%1$cextern system%1$cextern asprintf%1$cextern sprintf%1$cmain:%1$c	mov		r12, 5%1$c	push	rbx%1$c	call	asprintf_call%1$c	call	check_file%1$c	call	open_file%1$c	call	write_to_file%1$c	call	close_file%1$c	pop		rbx%1$c	call	sys_exit%1$casprintf_call:%1$c	push	rbx%1$c	mov		rdi, rsp%1$c	lea		rsi, [filename]%1$c	mov		rdx, r12%1$c	call	asprintf%1$c	mov		r13, rsp%1$c	pop		rbx%1$c	ret%1$ccheck_file:%1$c	push	rbx%1$c	mov		rax, 21%1$c	mov		rdi, [r13]%1$c	mov		rsi, 0%1$c	syscall%1$c	pop		rbx%1$c	cmp		rax, 0%1$c	je		file_exists%1$c	ret%1$cfile_exists:%1$c	push	rbx%1$c	dec		r12%1$c	call	asprintf_call%1$c	pop		rbx%1$c	ret%1$copen_file:%1$c	push	rbx%1$c	mov		rax, 2%1$c	mov		rdi, [r13]%1$c	mov	rsi, 64 + 1%1$c	mov		rdx, 0644o%1$c	syscall%1$c	mov		r13, rax%1$c	pop		rbx%1$c	ret%1$cwrite_to_file:%1$c	push	rbx%1$c	mov		rdi, r13%1$c	lea		rsi, [code]%1$c	mov		rdx, 10%1$c	mov		rcx, 34%1$c	mov		r8, [code]%1$c	call	dprintf%1$c	pop		rbx%1$c	ret;make:%1$c;	lea		rdi, [exec]%1$c;	call	system%1$c;	ret%1$cclose_file:%1$c	mov		rdi, r13%1$c	mov		rax, 3%1$c	syscall%1$c	mov		rax, 60%1$c	mov		rdi, 0%1$c	syscall%1$csys_exit:%1$c	mov		rax, 60%1$c	mov		rdi, 0%1$c	syscall%1$csection .data%1$cfilename: db %2$cSully_%%d.s%2$c, 0%1$ccode: db %2$c%3$s%2$c, 0%1$c", 0
 exec: db "echo hey", 0
