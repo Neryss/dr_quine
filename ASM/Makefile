@@ -15,7 +15,7 @@ Grace: Grace.s
 
 Sully: Sully.s
 	$(CC) $(CFLAGS) Sully.s
-	$(LD) -o Sully Sully.o
+	$(LD) -o Sully Sully.o && rm Sully.o
 
 clean:
 	rm -rf Colleen.o Grace.o Sully.o
