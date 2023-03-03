@@ -23,7 +23,7 @@ clean:
 fclean: clean
 	rm -rf Colleen Colleen_tmp.txt
 	rm -rf Grace Grace_kid.s
-	rm -rf Sully Sully2.s
+	rm -rf Sully Sully_*
 
 re: fclean
 	$(MAKE)
