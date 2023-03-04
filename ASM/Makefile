@@ -1,3 +1,7 @@
+_END=\033[0m
+_RED=\033[31m
+_GREEN=\033[32m
+
 CC= nasm
 CFLAGS= -felf64
 LD= gcc -g -no-pie
@@ -29,8 +33,16 @@ re: fclean
 	$(MAKE)
 
 run: all
-	./Colleen > Colleen_tmp.txt && diff Colleen.s Colleen_tmp.txt
+	@printf "$(_RED)[ASM]$(_END)$(_GREEN)[Colleen]$(_END) Running tests: no output expected\n"
+	@./Colleen > Colleen_tmp.txt && diff Colleen.s Colleen_tmp.txt
+	@printf "$(_RED)[ASM]$(_END)  $(_GREEN)[Grace]$(_END) Running tests: no output expected\n"
+	@./Grace; diff Grace.s Grace_kid.s
+	@printf "$(_RED)[ASM]$(_END)  $(_GREEN)[Sully]$(_END) Running tests\n"
+	@printf "$(_RED)[ASM]$(_END)  $(_GREEN)[Sully]$(_END) Count should be 13:\n"
+	@./Sully; ls -la | grep Sully | wc -l
+	@printf "$(_RED)[ASM]$(_END)  $(_GREEN)[Sully]$(_END) Diff tests, only r12 register should change\n"
+	-diff Sully.s Sully_4.s
+	-diff Sully.s Sully_5.s
+	-diff Sully_5.s Sully_0.s
 
 .PHONY: re all clean fclean run
-# nasm -felf64 Colleen.asm
-# gcc Collen.o

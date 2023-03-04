@@ -1,7 +1,7 @@
 # Dr_quine
 
-A basic introduction to self replication from 42.
+Some quines in C/ASM/JS
 
-## Resources
+## Resources (Mainly for assembly because you speak robot so it's hard to thonk robot)
 - https://filippo.io/linux-syscall-table/
 - https://cs.lmu.edu/~ray/notes/nasmtutorial/
