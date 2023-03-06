@@ -4,7 +4,7 @@ _GREEN=\033[32m
 
 CC= nasm
 CFLAGS= -felf64
-LD= gcc -g -no-pie
+LD= gcc -no-pie
 MAKEFLAGS= --no-print-directory
 
 all: Makefile Colleen Grace Sully
